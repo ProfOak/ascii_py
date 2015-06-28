@@ -6,17 +6,16 @@ class Ascii():
     def __init__(self, in_file):
         self.from_pic = Image.open(in_file)
 
-    def artify(self, words="#"):
+    def artify(self, words="#", step=3):
         self.to_pic = Image.new("RGB", self.from_pic.size, "black")
         words = words.upper()
 
         draw = ImageDraw.Draw(self.to_pic)
 
         MAX_W, MAX_H = self.from_pic.size
-        STEP = 3
         h = w = i = 0
 
-        # skip pixels by STEP amout and place characters around image
+        # skip pixels by `step` amout and place characters around image
         while h < MAX_H:
             while w < MAX_W:
                 # use a string as characters as the art characters
@@ -26,8 +25,8 @@ class Ascii():
                 i = (i+1) % len(words)
 
                 draw.text((w, h), c, self.from_pic.getpixel((w, h)))
-                w += STEP
-            h += STEP
+                w += step
+            h += step
             w = 0
 
         self.from_pic.close()
