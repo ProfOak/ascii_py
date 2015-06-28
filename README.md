@@ -20,11 +20,11 @@ After:
 ![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/after.jpg)
 
 
-Setting the step amount
+Flag usage example
 ---
 
-`python main.py -s 10 pizza_in.jpg`
+`ython main.py -s 10 -w "dank memes" -o ayy_lmao_pizza.jpg Media/pizza_in.jpg`
 
 ![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_in.jpg)
 
-![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_out.jpg)
+![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/ayy_lmao_pizza.jpg)
