@@ -25,6 +25,6 @@ Setting the step amount
 
 `python main.py -s 10 pizza_in.jpg`
 
-![]((https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_in.jpg)
+![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_in.jpg)
 
-![]((https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_out.jpg)
+![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_out.jpg)
