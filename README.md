@@ -23,7 +23,7 @@ After:
 Flag usage example
 ---
 
-`ython main.py -s 10 -w "dank memes" -o ayy_lmao_pizza.jpg Media/pizza_in.jpg`
+`$ python main.py -s 10 -w "dank memes" -o ayy_lmao_pizza.jpg Media/pizza_in.jpg`
 
 ![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_in.jpg)
 
