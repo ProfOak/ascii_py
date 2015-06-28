@@ -3,19 +3,15 @@ from optparse import OptionParser
 
 def main():
     parser = OptionParser()
-    parser.add_option("-o", "--out", dest = "filename",
-        help = "The filename you want your final image saved as")
-    parser.add_option("-w", "--words", dest = "words",
-        help = "Use words to create your image")
+    parser.add_option("-o", "--out", dest = "filename", default = "out.jpg",
+            help = "The filename you want your final image saved as")
+    parser.add_option("-w", "--words", dest = "words", default = "#",
+            help = "Use words to create your image")
+    parser.add_option("-s", "--step", dest = "step", type = "int", default = 3,
+            help = "choose the distance of your characters")
+
     (options, args) = parser.parse_args()
 
-    out_file = "out.jpg"
-    words = "#"
-
-    if options.filename:
-        out_file = options.filename
-    if options.words:
-        words = options.words
     if len(args) > 0:
         in_file = args[0]
     else:
@@ -23,8 +19,8 @@ def main():
         return
 
     a = Ascii(in_file)
-    a.artify(words)
-    a.save(out_file)
+    a.artify(options.words, step=options.step)
+    a.save(options.filename)
 
 if __name__ == "__main__":
     main()
