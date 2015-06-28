@@ -10,8 +10,8 @@ See `main.py` for basic usage
 
 Before:
 
-![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/before.png)
+![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/before.jpg)
 
 After:
 
-![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/after.png)
+![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/after.jpg)
