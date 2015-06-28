@@ -26,6 +26,5 @@ def main():
     a.artify(words)
     a.save(out_file)
 
-
 if __name__ == "__main__":
     main()
