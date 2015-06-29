@@ -15,16 +15,16 @@ class Ascii():
         MAX_W, MAX_H = self.from_pic.size
         h = w = i = 0
 
-        # skip pixels by `step` amout and place characters around image
+        # skip pixels by `step` amount and place characters around image
         while h < MAX_H:
             while w < MAX_W:
-                # use a string as characters as the art characters
+                # use a string as the art characters
                 c = words[i]
 
                 # loop around
                 i = (i+1) % len(words)
-
-                draw.text((w, h), c, self.from_pic.getpixel((w, h)))
+                p = self.from_pic.getpixel((w, h))
+                draw.text((w, h), c, p)
                 w += step
             h += step
             w = 0
