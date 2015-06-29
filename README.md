@@ -4,7 +4,11 @@ Makin some pictures
 
 This library requires the Pillow library
 
-`pip install Pillow`
+`pip install -U Pillow`
+
+To use the gui you need PySide
+
+`pip install -U PySide`
 
 See `main.py` for basic usage
 
