@@ -26,8 +26,8 @@ def save_img():
                 QMessageBox.StandardButton.Ok)
         return
 
-    if not (out_file.lower().endswith(".jpg") and
-            out_file.lower().endswith(".png") and
+    if not (out_file.lower().endswith(".jpg") or
+            out_file.lower().endswith(".png") or
             out_file.lower().endswith(".jpeg")):
         out_file += ".jpg"
 
