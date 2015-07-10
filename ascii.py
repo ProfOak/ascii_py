@@ -68,6 +68,8 @@ class Ascii():
                 w += step
             h += step
             w = 0
+        self.from_pic.close()
+        grayscale_img.close()
 
     def save(self, out_file="out.jpg"):
         self.to_pic.save(out_file)
