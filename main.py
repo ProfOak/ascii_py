@@ -9,6 +9,8 @@ def main():
             help = "Use words to create your image")
     parser.add_option("-s", "--step", dest = "step", type = "int", default = 3,
             help = "choose the distance of your characters")
+    parser.add_option("-t", "--type", default='n', dest='typ',
+            help="the type of ascii art to generate. n: normal, d:density")
 
     (options, args) = parser.parse_args()
 
@@ -19,7 +21,10 @@ def main():
         return
 
     a = Ascii(in_file)
-    a.artify(options.words, step=options.step)
+    if (options.typ.lower() == 'd'):
+        a.density_artify(step=options.step)
+    else:
+        a.artify(options.words, options.step)
     a.save(options.filename)
 
 if __name__ == "__main__":
