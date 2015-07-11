@@ -9,8 +9,8 @@ def main():
             help = "Use words to create your image")
     parser.add_option("-s", "--step", dest = "step", type = "int", default = 3,
             help = "choose the distance of your characters")
-    parser.add_option("-t", "--type", default='n', dest='typ',
-            help="the type of ascii art to generate. n: normal, d:density")
+    parser.add_option("-d", "--density", action="store_true", dest='density',
+            help="adding the flag converts the image based on visual density")
 
     (options, args) = parser.parse_args()
 
@@ -21,7 +21,7 @@ def main():
         return
 
     a = Ascii(in_file)
-    if (options.typ.lower() == 'd'):
+    if (options.density):
         a.density_artify(step=options.step)
     else:
         a.artify(options.words, options.step)
