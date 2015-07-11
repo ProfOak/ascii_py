@@ -1,6 +1,6 @@
-# ASCII Py
+#Ascii Py
 
-Makes ascii art from images.
+Makin some pictures
 
 This library requires the Pillow library
 
