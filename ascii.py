@@ -109,10 +109,10 @@ class Ascii():
 
         if current_h > t_height or current_w > t_width:
             # floating point division
-            scalar     = max(current_h/t_height, current_w/t_width)
-            current_h  = int(current_h/scalar)
-            current_w  = int(current_w/scalar)
-            dimensions = current_h, current_w
+            scalar     = max(current_h/t_height, (current_w*2)/t_width)
+            current_w  = int((current_w*2)/scalar)
+            current_h  = int((current_h)/scalar)
+            dimensions = current_w, current_h
             canvas     = self.from_pic.resize(dimensions)
 
         # used for brightness (density) levels
@@ -120,8 +120,8 @@ class Ascii():
 
         image = ""
 
-        for h in range(current_w):
-            for w in range(current_h):
+        for h in range(current_h):
+            for w in range(current_w):
                 # get brightness value
                 brightness = grayscale_img.getpixel((w, h))/255.
                 srgb = tuple(map(lambda v: (((v/255.)**2.2)), canvas.getpixel((w, h))))
