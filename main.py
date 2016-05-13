@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from ascii import Ascii
 from optparse import OptionParser
 
@@ -19,7 +20,7 @@ def main():
     if len(args) > 0:
         in_file = args[0]
     else:
-        print "Failed to provide an input image"
+        print("Failed to provide an input image")
         return
 
     a = Ascii(in_file)

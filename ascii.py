@@ -1,4 +1,5 @@
 import colorama
+import shutil
 import os
 from PIL import Image
 from PIL import ImageDraw
@@ -44,6 +45,7 @@ class Ascii():
 
         self.from_pic.close()
 
+
     def density_artify(self, step=7):
         """
         Generates the acsii image where the 'words' are selected based on
@@ -55,8 +57,6 @@ class Ascii():
 
         if step < 7:
             step = 7
-
-
 
         h = 0
         w = 0
@@ -95,8 +95,9 @@ class Ascii():
             [(255, 255,   0), colorama.Fore.YELLOW]
         ]
 
-        acab = map(lambda x: [map(lambda v: v/255., x[0]), x[1]], acab)
-        acab = map(lambda x: [map(lambda v: v**2.2, x[0]), x[1]], acab)
+        # convert to floats, linearize
+        # in case more colors are added
+        acab = [ [[(v/255.0)**2.2 for v in x[0]], x[1]] for x in acab ]
 
         # needed for Windows operating systems
         colorama.init()
@@ -105,7 +106,8 @@ class Ascii():
         current_h, current_w = float(self.MAX_H), float(self.MAX_W)
 
         # resize to fit current dimensions of terminal
-        t_height, t_width = self.get_terminal_size()
+        # shutil added get_terminal_size starting in python 3.3
+        t_width, t_height = shutil.get_terminal_size()
 
         if current_h > t_height or current_w > t_width:
             # floating point division
@@ -123,8 +125,8 @@ class Ascii():
         for h in range(current_h):
             for w in range(current_w):
                 # get brightness value
-                brightness = grayscale_img.getpixel((w, h))/255.
-                srgb = tuple(map(lambda v: (((v/255.)**2.2)), canvas.getpixel((w, h))))
+                brightness = grayscale_img.getpixel((w, h))/255.0
+                srgb = [ (v/255.0)**2.2 for v in canvas.getpixel((w,h)) ]
 
                 # select required character from the letter_densities list
                 char_pos = brightness * (len(self.letter_densities) - 1)
@@ -135,9 +137,12 @@ class Ascii():
 
         # prints the converted image to terminal
         # (remove the last newline)
-        print image[:-1] + colorama.Fore.RESET
+        print(image[:-1] + colorama.Fore.RESET)
 
-        raw_input("Press enter to continue...")
+        self.from_pic.close()
+        grayscale_img.close()
+
+        input("Press enter to continue...")
 
 
     #######################################
@@ -152,19 +157,14 @@ class Ascii():
 
         return (v1[0]-v2[0])**2 + (v1[1]-v2[1])**2 + (v1[2]-v2[2])**2
 
-    def get_terminal_size(self):
-        """ get the size to display an ascii image to the term """
-
-        return map(int, os.popen('stty size', 'r').read().split())
-
     def _convert_color(self, rgb, brightness, acab):
         """ convert color using acab data """
 
         min_distance = 2
         index = 0
 
-        for i in range(0, len(acab)):
-            tmp = map(lambda v: v*brightness, acab[i][0])
+        for i in range(len(acab)):
+            tmp = [ v*brightness for v in acab[i][0] ]
             distance = self._L2_min(tmp, rgb)
 
             if distance < min_distance:
@@ -178,3 +178,4 @@ class Ascii():
 
         self.to_pic.save(out_file)
         self.to_pic.close()
+
