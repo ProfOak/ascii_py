@@ -26,12 +26,15 @@ def main():
 
     if options.density:
         a.density_artify(step=options.step)
+        a.save(options.filename)
+
     elif options.terminal:
         a.terminal_artify()
+
     else:
         a.word_artify(options.words, options.step)
+        a.save(options.filename)
 
-    a.save(options.filename)
 
 if __name__ == "__main__":
     main()

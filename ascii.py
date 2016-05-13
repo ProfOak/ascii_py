@@ -102,20 +102,22 @@ class Ascii():
         colorama.init()
 
         canvas = self.from_pic
-        current_h, current_w = self.MAX_H, self.MAX_W
+        current_h, current_w = float(self.MAX_H), float(self.MAX_W)
 
         # resize to fit current dimensions of terminal
         t_height, t_width = self.get_terminal_size()
-        if self.MAX_H > t_height or self.MAX_W > t_width:
-            scalar = max(current_h/t_height, current_w/t_width)
-            current_h, current_w = self.MAX_H/scalar, self.MAX_W/scalar
-            dimensions = (current_h, current_w)
-            canvas = self.from_pic.resize(dimensions)
+
+        if current_h > t_height or current_w > t_width:
+            # floating point division
+            scalar     = max(current_h/t_height, current_w/t_width)
+            current_h  = int(current_h/scalar)
+            current_w  = int(current_w/scalar)
+            dimensions = current_h, current_w
+            canvas     = self.from_pic.resize(dimensions)
 
         # used for brightness (density) levels
         grayscale_img = canvas.convert("L")
 
-        h = w = 0
         image = ""
 
         for h in range(current_w):
