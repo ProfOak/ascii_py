@@ -4,87 +4,116 @@ from PySide.QtCore import *
 from PySide.QtGui import *
 from ascii import Ascii
 
-def get_input_file():
-    in_line.setText(QFileDialog.getOpenFileName()[0])
+class Ascii_gui(QWidget):
+    def __init__(self):
+        super(Ascii_gui, self).__init__()
 
-def get_output_file():
-    out_line.setText(QFileDialog.getSaveFileName()[0])
+        self.setWindowTitle("ascii py")
+        self.layout = QGridLayout()
+        self.setLayout(self.layout)
+        self.setWindowIcon(QIcon(QPixmap("Media/before.jpg")))
 
-def save_img():
-    in_file  = in_line.text()
-    out_file = out_line.text()
-    step     = step_line.text()
-    words    = words_line.text()
+        self.create_widgets()
+        self.connect_hooks()
+        self.place_widgets()
 
-    if step.isdigit():
-        step = int(step)
-    else:
-        step = 3
+        self.show()
 
-    if not os.path.exists(in_file):
-        QMessageBox().warning(None, "Error", "Input file does not exist",
-                QMessageBox.StandardButton.Ok)
-        return
+        # don't really see the point in resizing
+        self.setFixedSize(self.size())
 
-    if not (out_file.lower().endswith(".jpg") or
-            out_file.lower().endswith(".png") or
-            out_file.lower().endswith(".jpeg")):
-        out_file += ".jpg"
+    def get_input_file(self):
+        self.in_line.setText(QFileDialog.getOpenFileName()[0])
 
-    a = Ascii(in_file)
-    a.artify(words, step)
-    a.save(out_file)
+    def get_output_file(self):
+        return QFileDialog.getSaveFileName(prefferedName="out.jpg")[0]
 
-app = QApplication(sys.argv)
-root = QWidget()
-root.setWindowTitle("Ascii Py")
-root_layout = QGridLayout()
+    def flip_read_only(self):
 
-# === CREATE ===
-in_label    = QLabel("From")
-out_label   = QLabel("To")
-words_label = QLabel("Words to use")
-step_label  = QLabel("Step Amount")
+        # mess
+        read_only = self.words_line.isReadOnly()
+        self.words_line.setReadOnly(not read_only)
+        read_only = self.words_line.isReadOnly()
 
-in_line    = QLineEdit()
-out_line   = QLineEdit("out.jpg")
-words_line = QLineEdit("#")
-step_line  = QLineEdit("3")
+        if read_only:
+            self.words_line.clear()
+            self.words_line.setEnabled(False)
+        else:
+            self.words_line.setEnabled(True)
 
-open_button     = QPushButton("Open File")
-save_button     = QPushButton("Save As")
-save_img_button = QPushButton("Save Image")
-# === CREATE ===
 
-# === HOOK ===
-open_button.clicked.connect(get_input_file)
-save_button.clicked.connect(get_output_file)
-save_img_button.clicked.connect(save_img)
-# === HOOK ===
+    def create_widgets(self):
 
-# === PLACE ===
-root_layout.addWidget(in_label, 1,0,1,1)
-root_layout.addWidget(in_line, 2,0,1,1)
-root_layout.addWidget(open_button, 3,0,1,1)
+        self.combo = QComboBox()
+        self.combo.addItem("Words")
+        self.combo.addItem("Density")
 
-root_layout.addWidget(out_label, 1,1,1,1)
-root_layout.addWidget(out_line, 2,1,1,1)
-root_layout.addWidget(save_button, 3,1,1,1)
+        self.in_label    = QLabel("From image")
+        self.words_label = QLabel("Words to use")
+        self.step_label  = QLabel("Distance between characters")
+        self.combo_label = QLabel("Ascii type")
 
-root_layout.addWidget(words_label, 4,0,1,1)
-root_layout.addWidget(words_line, 5,0,1,1)
+        self.in_line    = QLineEdit()
+        self.words_line = QLineEdit()
+        self.step_line  = QLineEdit("6")
 
-root_layout.addWidget(step_label, 4,1,1,1)
-root_layout.addWidget(step_line, 5,1,1,1)
-root_layout.addWidget(save_img_button, 6,0,1,2)
-# === PLACE ===
+        self.open_button     = QPushButton("Open File")
+        self.save_img_button = QPushButton("Save Image As")
 
-root.setLayout(root_layout)
-root.show()
+    def connect_hooks(self):
+        self.open_button.clicked.connect(self.get_input_file)
+        self.save_img_button.clicked.connect(self.save_img)
+        self.combo.currentIndexChanged[str].connect(self.flip_read_only)
 
-# don't relaly see the point in resizing
-root.setFixedSize(root.size())
+    def place_widgets(self):
 
-app.exec_()
-sys.exit()
+        self.layout.addWidget(self.in_label, 1, 0, 1, 2)
+        self.layout.addWidget(self.in_line, 2, 1, 1, 3)
+        self.layout.addWidget(self.open_button, 2, 0, 1, 1)
 
+        self.layout.addWidget(self.combo_label, 4, 0, 1, 1)
+        self.layout.addWidget(self.combo, 5, 0, 1, 1)
+
+        self.layout.addWidget(self.words_label, 4, 1, 1, 1)
+        self.layout.addWidget(self.words_line, 5, 1, 1, 3)
+
+        self.layout.addWidget(self.step_label, 7, 0, 1, 0)
+        self.layout.addWidget(self.step_line, 8, 0, 1, 0)
+        self.layout.addWidget(self.save_img_button, 9, 0, 1, 0)
+
+    def save_img(self):
+        in_file  = self.in_line.text()
+        step     = self.step_line.text()
+        words    = self.words_line.text()
+
+        if step.isdigit():
+            step = int(step)
+        else:
+            step = 3
+
+        if words == "":
+            words = "#"
+
+        if not os.path.exists(in_file):
+            QMessageBox().warning(None, "Error", "Input file does not exist",
+                    QMessageBox.StandardButton.Ok)
+            return
+        output_file = self.get_output_file()
+
+        if not (output_file.lower().endswith(".jpg") or
+                output_file.lower().endswith(".png") or
+                output_file.lower().endswith(".jpeg")):
+            output_file += ".jpg"
+
+        a = Ascii(in_file)
+        a.word_artify(words, step)
+        a.save(output_file)
+
+
+def main():
+    app = QApplication(sys.argv)
+    a = Ascii_gui()
+    sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
