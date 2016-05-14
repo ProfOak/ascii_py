@@ -14,28 +14,21 @@ At the time of this commit PySide can only be installed on Python versions 2.6, 
 
 ---
 
+```
 Usage: main.py [options]
 
 Options:
 
   -h, --help            show this help message and exit
-
   -o FILENAME, --out=FILENAME
-
                         The filename you want your final image saved as
-
   -w WORDS, --words=WORDS
-
                         Use words to create your image
-
   -s STEP, --step=STEP  Choose the distance of your characters
-
   -d, --density         Adding the flag converts the image based on visual
-
                         density
-
   -t, --terminal        Print ascii image to terminal
-
+```
 
 Example usage
 ---
