@@ -13,7 +13,6 @@ class Ascii():
         self.from_pic = Image.open(in_file)
         self.to_pic = Image.new("RGB", self.from_pic.size, "black")
         self.draw = ImageDraw.Draw(self.to_pic)
-        self.draw = ImageDraw.Draw(self.to_pic)
 
         self.MAX_W, self.MAX_H = self.from_pic.size
 
@@ -60,6 +59,9 @@ class Ascii():
 
         h = 0
         w = 0
+
+        # used for brightness (density) levels
+        grayscale_img = self.from_pic.convert("L")
 
         while h < self.MAX_H:
             while w < self.MAX_W:
