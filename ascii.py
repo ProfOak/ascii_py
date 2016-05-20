@@ -128,7 +128,13 @@ class Ascii():
             for w in range(current_w):
                 # get brightness value
                 brightness = grayscale_img.getpixel((w, h))/255.0
-                srgb = [ (v/255.0)**2.2 for v in canvas.getpixel((w,h)) ]
+                pixel = canvas.getpixel((w, h))
+                # getpixel() may return an int, instead of tuple of ints, if the
+                # source img is a PNG with a transparency layer.
+                if isinstance(pixel, int):
+                    pixel = (pixel, pixel, 255)
+
+                srgb = [ (v/255.0)**2.2 for v in pixel ]
 
                 # select required character from the letter_densities list
                 char_pos = brightness * (len(self.letter_densities) - 1)
