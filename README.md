@@ -2,7 +2,26 @@
 
 Makin some pictures
 
-This library requires the Pillow and colorama libraries
+Ascii py requires the use of Python 3.3 or greater because of [an addition made to the shutil ibrary](https://docs.python.org/3/library/shutil.html#querying-the-size-of-the-output-terminal).
+
+Install instructions
+---
+
+Using pip:
+
+`python3 -m pip install ascii_py`
+
+Manually:
+
+```
+git clone https://github.com/profoak/ascii_py
+cd ascii_py
+python3 setup.py install
+```
+
+If you want to use the gui component: `python3 setup_gui.py install`
+
+This library requires the Pillow and colorama libraries. If you use the above install methods, these will automagically be installed.
 
 `python3 -m pip install -U Pillow colorama`
 
@@ -15,7 +34,7 @@ At the time of this commit PySide can only be installed on Python versions 2.6, 
 ---
 
 ```
-Usage: main.py [options]
+Usage: ascii_py [options]
 
 Options:
 
@@ -52,7 +71,7 @@ Terminal flag (screenshot):
 Other flags usage example:
 ---
 
-`$ python main.py -s 10 -w "dank memes" -o ayy_lmao_pizza.jpg Media/pizza_in.jpg`
+`$ python ascii_py -s 10 -w "dank memes" -o ayy_lmao_pizza.jpg Media/pizza_in.jpg`
 
 ![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_in.jpg)
 

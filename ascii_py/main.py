@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from ascii import Ascii
+from .ascii import Ascii
 from optparse import OptionParser
 
 def main():

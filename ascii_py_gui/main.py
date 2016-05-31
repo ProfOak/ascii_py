@@ -2,7 +2,7 @@ import os
 import sys
 from PySide.QtCore import *
 from PySide.QtGui import *
-from ascii import Ascii
+from .ascii import Ascii
 
 class Ascii_gui(QWidget):
     def __init__(self):
