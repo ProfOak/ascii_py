@@ -31,6 +31,7 @@ To use the gui you need PySide
 
 At the time of this commit PySide can only be installed on Python versions 2.6, 2.7, 3.3, 3.4. If you wish to use the GUI you must have installed versions 3.3 or 3.4. You can read more about it here https://github.com/PySide/pyside-setup/issues/53
 
+Usage
 ---
 
 ```
@@ -49,7 +50,7 @@ Options:
   -t, --terminal        Print ascii image to terminal
 ```
 
-Example usage
+Example images
 ---
 
 Original image:
@@ -71,7 +72,7 @@ Terminal flag (screenshot):
 Other flags usage example:
 ---
 
-`$ python ascii_py -s 10 -w "dank memes" -o ayy_lmao_pizza.jpg Media/pizza_in.jpg`
+`$ ascii_py -s 10 -w "dank memes" -o ayy_lmao_pizza.jpg Media/pizza_in.jpg`
 
 ![](https://raw.githubusercontent.com/ProfOak/ascii_py/master/Media/pizza_in.jpg)
 
