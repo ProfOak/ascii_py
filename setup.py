@@ -25,7 +25,7 @@ setup(
     keywords = "ascii art image fun memes",
     install_requires = [
         "colorama==0.4.4",
-        "Pillow==8.0.1",
+        "Pillow==8.1.1",
     ],
     packages = find_packages(exclude=["Media"]),
     scripts=["bin/ascii_py"],
