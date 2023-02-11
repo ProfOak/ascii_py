@@ -77,9 +77,7 @@ class Ascii:
         a less bright pixel will have a character with high visual density.
         """
 
-        if step < 7:
-            step = 7
-
+        step = max(step, 7)
         h = 0
         w = 0
 
